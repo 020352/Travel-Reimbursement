@@ -1,0 +1,51 @@
+@model SignupAccount;
+@{
+    Layout="/Views/Shared/_userLayout.cshtml";
+}
+<section class="vh-100" style="background-color: background: rgb(70,70,185);
+background: linear-gradient(90deg, rgba(70,70,185,1) 21%, rgba(16,159,187,1) 97%);">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-6 mb-4 mb-lg-0">
+        <div class="card mb-3" style="border-radius: .5rem;">
+          <div class="row g-0">
+            <div class="col-md-4 gradient-custom text-center text-dark"
+              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+              <img src="../images/user-regular.svg" alt="Avatar"
+                alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+              <h5>@Model.EmployeeName</h5>
+              <p>Dotnet Learner</p>
+              <i class="far fa-edit mb-5"></i>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h6>Information</h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div >
+                    <h6>Email</h6>
+                    <p class="text-muted">@Model.Emailaddress</p>
+                  </div>
+                  <div class="row pt-1">
+                  <div >
+                    <h6>Employee ID</h6>
+                    <p class="text-muted">@Model.EmployeeID</p>
+                  </div>
+                  <div class="row pt-1">
+                  <div >
+                    <a type="button" class="btn btn-primary btn-sg" asp-controller="Login" asp-action="Forgotpassword">Change Password</a>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                  <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                  <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                  <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

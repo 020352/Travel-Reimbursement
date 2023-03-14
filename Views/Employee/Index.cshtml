@@ -1,0 +1,93 @@
+@model IEnumerable<Employees>
+@{
+    Layout="/Views/Shared/_userLayout.cshtml";
+}
+<!DOCTYPE html>
+ <html>
+<body  background style="background-image: radial-gradient( circle farthest-corner at 92.3% 71.5%,  rgba(83,138,214,1) 0%, rgba(134,231,214,1) 90% );">
+  
+<style type="text/css">
+img {
+  width: 1000px;
+  height: 500px;
+}
+.table-center{
+  margin-left:8%;
+  @* border: 2px solid black; *@
+  width: 50rem;
+}
+th
+{
+  text-align:center;
+}
+.about {<!--from   ww w.j av  a2s . com-->
+   padding: 2em;
+}
+.container {
+   margin: 0 auto;
+   width: 60%;
+   text-align: center;
+}
+.about:after { /* this is the border */
+    content:"";
+    display:block;
+    width: 6em;
+    max-width:70%;
+    border-bottom: 0.3em solid red;
+    margin: 2em auto 0;
+
+    margin-left: -250px;
+}
+.Header{
+  margin-right: 400px;
+  
+  margin-left: -250px;
+  
+
+}
+.Header1{
+  margin-right:460px;
+  margin-left:-260px;
+}
+</style>
+<div class="text-center">
+</div>
+<section class="about">
+  <br>
+  <h2  class="Header" style="text-align: left;"><strong>CONNECT AND TAKE CONTROL OF SPENDING</strong></h2>
+</section>
+<br>
+<h6 class="Header1">Automate your travel reimbursement system to save time, eliminate manual data entry, and
+reduce processing costs with a expense reimbursement software.</h6>
+
+<br>
+<table class="table">
+  <caption>Reports Submitted</caption>
+  <thead>
+    <tr>
+      <th scope="col">@Html.DisplayNameFor(model => model.ReimbursementNo)</th>
+      <th scope="col">@Html.DisplayNameFor(model => model.EmployeeID)</th>
+      <th scope="col">@Html.DisplayNameFor(model => model.Projecttitle)</th>
+      <th scope="col">@Html.DisplayNameFor(model => model.Tripto)</th>
+      <th scope="col">@Html.DisplayNameFor(model => model.TotalCost)</th>
+      <th scope="col">Submitted On</th>
+      <th scope="col">@Html.DisplayNameFor(model => model.Status)</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model)
+    {
+    <tr>
+      <td>@Html.DisplayFor(modelItem => item.ReimbursementNo)</td>
+      <td>@Html.DisplayFor(modelItem => item.EmployeeID)</td>
+      <td>@Html.DisplayFor(modelItem => item.Projecttitle)</td>
+      <td>@Html.DisplayFor(modelItem => item.Tripto)</td>
+      <td>@Html.DisplayFor(modelItem => item.TotalCost)</td>
+      <td>@Html.DisplayFor(modelItem => item.SubmittedDate)</td>
+      <td>@Html.DisplayFor(modelItem => item.Status)</td>
+    </tr> 
+    }
+  </tbody>
+</table>
+</body>
+</html>  

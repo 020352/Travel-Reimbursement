@@ -1,0 +1,210 @@
+@model Employees
+@{
+    Layout="/Views/Shared/_userLayout.cshtml";
+}
+
+<style>
+    .currency-wrap{
+		position:relative;
+	}
+	
+	.currency-code{
+		position:absolute;
+		left:8px;
+		top:10px;
+	}
+	
+	.text-currency{
+		padding:10px 20px;
+		border:solid 1px #ccc;
+		border-radius:5px;
+	}
+</style>
+
+<body>
+<form method="post">
+<div class="wrapper rounded bg-white">
+        <div class="p-3 mb-2 bg-secondary text-white" style="text-align:center;"><strong>Reimbursement Form</strong></div>
+        
+        <div class="form">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <label asp-for="EmployeeID">Employee ID</label>
+                   
+                    <input asp-for="EmployeeID" type="text" class="form-control" value='@ViewBag.Message' required/>
+                </div>
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <label asp-for="EmployeeName"></label>
+                    <input type="text" asp-for="EmployeeName"  class="form-control" required/>
+                    <p style=color:red;text-align:center;>@ViewBag.Creates</p>
+                    <span asp-validation-for="EmployeeName" class="text-danger"></span>
+                    
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <label  asp-for="startdate">Travel Start Date</label>
+                    <input asp-for="startdate" type="date" class="form-control" required/>
+                    
+                </div>
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <label asp-for="enddate">Travel End Date</label>
+                    <input type="date" asp-for="enddate" class="form-control" required/>
+                    
+                </div>
+            </div>
+            <br>
+             <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <label  asp-for="startdate">Project Title</label>
+                    <input asp-for="Projecttitle" type="text" class="form-control" required/>
+                    <span asp-validation-for="Projecttitle" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <label asp-for="Tripto">Trip to</label>
+                    <select  asp-for="Tripto" class="form-control">
+                        <option>--Choose--</option>
+                        <option>Australia</option>
+                        <option>Singapore</option>
+                        <option>Mexico</option>
+                        <option>UAE</option>
+                        <option>USA</option>
+                        <option>Malaysia</option>
+                    </select>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <div class="form-group">
+                    <label asp-for="Description1">Expense-1</label>
+                    <select asp-for="Description1" class="form-control" id="t1" onchange="getSelectValue(this.value);">
+                        <option>--Choose--</option>
+                        <option>Accomodation</option>
+                        <option>Food</option>
+                        <option>Travel Tickets</option>
+                    </select>
+                    
+                    </div>
+                </div>
+                <div class="col-md-6 mt-md-0 mt-3" style="padding-top: 20px;">
+                    <div class="currency-wrap">
+                        <span class="currency-code">₹</span> 
+                    <input asp-for="Cost1" id="txt1" type="number" placeholder="Cost 1" class="text-currency" class="form-control" onkeyup="sum();" required/>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <div class="form-group">
+                    <label asp-for="Description2">Expense-2</label>
+                    <select asp-for="Description2" class="form-control" id="t2" >
+                        <option>--Choose--</option>
+                        <option>Accomodation</option>
+                        <option>Food</option>
+                        <option>Travel Tickets</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-md-0 mt-3" style="padding-top:20px;">
+                    <div class="currency-wrap">
+                        <span class="currency-code">₹</span> 
+                    <input asp-for="Cost2" id="txt2" type="number" placeholder="Cost 2" class="text-currency" class="form-control" onkeyup="sum();" />
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <div class="form-group">
+                    <label asp-for="Description3">Expense-3</label>
+                    <select asp-for="Description3" class="form-control" id="t3" >
+                        <option>--Choose--</option>
+                        <option>Accomodation</option>
+                        <option>Food</option>
+                        <option>Travel Tickets</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-md-0 mt-3" style="padding-top: 20px;">
+                    <div class="currency-wrap">
+                        <span class="currency-code">₹</span> 
+                        <input asp-for="Cost3" id="txt3" type="number" placeholder="Cost 3" class="text-currency" class="form-control" onkeyup="sum();" />
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                   <div class="currency-wrap">
+                        <span class="currency-code">₹</span> 
+                        <input type="number" id="txt4" class="text-currency" asp-for="TotalCost" placeholder="Total Cost" required/>
+                       
+                    </div>
+                </div>
+               <div class="form-group col-md-6 mt-md-0 mt-3" style="padding-top: 10px;">
+                    <label asp-for="Attachment">Attach file</label>
+                    <input asp-for="Attachment" type="file" required/>
+                    <span asp-validation-for="Attachment" class="text-danger"></span>
+                    
+                </div>
+            </div>
+            <br>
+            <div class=" my-md-2 my-3">
+                <label asp-for="Suggesstion">Any other suggesstions</label>
+                <input type="text" asp-for="Suggesstion" class="col-xs-3 form-control" placeholder="type something " required/>
+                <span asp-validation-for="Suggesstion" class="text-danger"></span>
+                
+            </div >
+            @* <a asp-controller="Employee" asp-action="ViewDetails" class="btn btn-info btn-lg">Preview</a> *@
+            <button class="btn btn-primary mt-3" type="submit" style="margin-left:45%">Submit</button>
+        </div>
+    </div>
+
+</form>
+</body>
+    @section Scripts
+  {
+      <partial name="_ValidationScriptsPartial"/>
+  }
+<script>
+function sum() {
+            var txtFirstNumberValue = document.getElementById('txt1').value;
+            var txtSecondNumberValue = document.getElementById('txt2').value;
+            var txtthirdNumberValue = document.getElementById('txt3').value;
+            if(txtthirdNumberValue == 0 && txtSecondNumberValue == 0)
+            {
+             var result=parseInt(txtFirstNumberValue);
+            }
+            else if(txtthirdNumberValue == 0)
+            {
+                var result=parseInt(txtFirstNumberValue) + parseInt(txtSecondNumberValue);
+            }
+            else{
+                var result=parseInt(txtFirstNumberValue) + parseInt(txtSecondNumberValue)+parseInt(txtthirdNumberValue);
+            }
+            if (!isNaN(result)) {
+                document.getElementById('txt4').value = result;
+            }
+        }
+        </script>
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
